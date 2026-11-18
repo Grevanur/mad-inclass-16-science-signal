@@ -29,12 +29,13 @@ The client transaction reads first, creates only when absent, reuses an identica
 ## Run and verify
 
 1. Install Flutter 3.47 or a compatible stable release and Android tooling.
-2. Run `flutter pub get`.
-3. Use an instructor-authorized Email and Password test account. Credentials are deliberately not stored in this repository.
-4. Run `flutter run` for development evidence controls or install the supplied release APK.
-5. Complete all five questions, review the selections, and submit.
-6. Confirm that the app reports `Cloud verified`, displays the full round ID and resolved UTC server timestamp, and that the matching document exists in Firestore.
-7. To reproduce restart retrieval, copy the round ID, force-stop and reopen the app while online, sign in as the same user, expand **Retrieve an existing round**, enter the ID, and select **Read from server**.
+2. Install the FlutterFire CLI and run `flutterfire configure` for an authorized Firebase project. This locally generates `lib/firebase_options.dart` and `android/app/google-services.json`; both paths are ignored by Git.
+3. Run `flutter pub get`.
+4. Use an instructor-authorized Email and Password test account. Credentials are deliberately not stored in this repository.
+5. Run `flutter run` for development evidence controls or install the supplied release APK.
+6. Complete all five questions, review the selections, and submit.
+7. Confirm that the app reports `Cloud verified`, displays the full round ID and resolved UTC server timestamp, and that the matching document exists in Firestore.
+8. To reproduce restart retrieval, copy the round ID, force-stop and reopen the app while online, sign in as the same user, expand **Retrieve an existing round**, enter the ID, and select **Read from server**.
 
 ## Graduate two-client procedure
 
@@ -56,7 +57,8 @@ The release output is `build/app/outputs/flutter-apk/app-release.apk`. It was in
 
 - Firestore rules are owner-only, schema-exact, create-only, and deny updates and deletes.
 - Passwords, ID tokens, refresh tokens, service accounts, admin SDK credentials, and private keys are not stored or logged.
-- `google-services.json` and `firebase_options.dart` contain Firebase client identifiers. They are intentionally distributable client configuration, not privileged server credentials; authorization remains enforced by Authentication and Firestore rules.
+- Generated Firebase configuration is kept local: `google-services.json` and `firebase_options.dart` are ignored and absent from every published Git commit.
+- The Android API key used for the release is restricted to package `edu.gsu.gowtham.inclass_16`, the release certificate fingerprint, and the required Firebase APIs.
 - Invalid schema and ownership tests use deployed rules. Fault injection never changes production rules or deliberately consumes quota.
 - The final repository and Git history are scanned before release.
 

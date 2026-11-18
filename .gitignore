@@ -60,3 +60,7 @@ firebase-adminsdk*.json
 credentials*.json
 private_test_access*
 evidence_private/
+
+# Generated Firebase client configuration. Create locally with FlutterFire CLI.
+/android/app/google-services.json
+/lib/firebase_options.dart
